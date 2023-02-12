@@ -198,8 +198,9 @@ module.exports = function (app) {
         if (!thread) { return res.send("invalid board/id")}   // if no thread returned, respond with 'invalid board/id'
 
         // push new reply to the thread with data and hashed password, update bumped on date, and save thread
-        thread.replies.push(new Reply({text: text, delete_password: bcrypt.hashSync(delete_password, 4)}));
-        thread.bumped_on = Date.now();
+        let myreply = new Reply({text: text, delete_password: bcrypt.hashSync(delete_password, 4)});
+        thread.replies.push(myreply);
+        thread.bumped_on = myreply.created_on;
         thread.save(err => {
           if (err) { return res.send(err) }
 
