@@ -15,7 +15,6 @@ suite('Functional Tests', function() {
 
         test('Creating a new thread: POST request to /api/threads/{board}', (done) => {
             chai.request(server)
-            .keepOpen()  // Keep testing connection open - resolves Replit issue of disconnecting Express between and after tests
             .post('/api/threads/tester')
             .send({text: "This is a Chai Test Post!", delete_password: delete_passwords})
             .end( (err, res) => {
